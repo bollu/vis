@@ -12,3 +12,6 @@
 *.gcov
 *.html
 *.o
+.idea/*
+cmake-build-debug/*
+build/*
