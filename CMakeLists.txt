@@ -17,12 +17,16 @@ pkg_check_modules(LIBCURSES REQUIRED IMPORTED_TARGET ncurses)
 # add_compile_definitions(VERSION=$(shell git describe --always --dirty 2>/dev/null || echo "v0.7-git"))
 add_compile_definitions(VERSION="2")
 add_compile_definitions(CONFIG_CURSES=1)
-add_compile_definitions(CONFIG_LUA=0)
+add_compile_definitions(CONFIG_LUA=1)
 add_compile_definitions(CONFIG_LPEG=0)
 add_compile_definitions(CONFIG_TRE=0)
 add_compile_definitions(CONFIG_ACL=0)
 add_compile_definitions(CONFIG_SELINUX=0)
 add_compile_definitions(HAVE_MEMRCHR=1)
+add_compile_definitions(LUA_COMPAT_ALL)
+add_compile_definitions(LUA_COMPAT_5_1)
+add_compile_definitions(LUA_COMPAT_5_2)
+add_compile_definitions(LUA_COMPAT_5_3)
 
 add_executable(vis
 array.c
@@ -61,6 +65,6 @@ vis-text-objects.c)
 
 
 target_include_directories(vis PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${LUA_INCLUDE_DIR} ${LIBTERMKEY_INCLUDE_DIRS})
-target_link_libraries(vis PkgConfig::LIBTERMKEY PkgConfig::LIBCURSES)
+target_link_libraries(vis PkgConfig::LIBTERMKEY PkgConfig::LIBCURSES ${LUA_LIBRARIES})
 install(TARGETS vis DESTINATION bin)
 
